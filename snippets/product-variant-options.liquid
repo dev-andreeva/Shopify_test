@@ -61,7 +61,7 @@
     >
 
     <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">   
-      <img src="{{featured_image | img_url: 'large'}}"
+      <img src="{{featured_media.src | img_url: 'large'}}"
                         alt="{{variant.title}}"/>
        
       {{ value -}}
