@@ -59,7 +59,7 @@
         class="disabled"
       {% endif %}
     >
-<img src="{{featured_media.src | img_url: 'large'}}"
+<img src="{{variant.image.src | img_url: 'large'}}"
                         alt="{{variant.title}}"/>
     <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">   
       
