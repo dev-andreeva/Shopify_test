@@ -62,6 +62,16 @@
      
     <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">  
       {{ value -}} 
+      {% assign featured_media = current_variant.featured_media %}
+{% case featured_media.media_type %}
+  {% when 'image' %}
+    <div class="product-single__media"
+      style="padding-top: {{ 1 | divided_by: featured_media.aspect_ratio | times: 100}}%;"
+      data-media-id="{{ featured_media.id }}"
+    >
+      {{ featured_media | image_url: width: 2048 | image_tag }}
+    </div>
+      {% endcase %}
       <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
     </label>
 
