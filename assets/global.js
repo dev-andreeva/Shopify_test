@@ -857,6 +857,8 @@ class VariantSelects extends HTMLElement {
     modalContent.prepend(newMediaModal);
   }
 
+  console.log(newMediaModal);
+
   updateURL() {
     if (!this.currentVariant || this.dataset.updateUrl === 'false') return;
     window.history.replaceState({ }, '', `${this.dataset.url}?variant=${this.currentVariant.id}`);
