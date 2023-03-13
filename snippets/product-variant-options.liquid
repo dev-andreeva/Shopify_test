@@ -61,13 +61,23 @@
     >
   
     <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">  
-        {% for image in product.images %}
-           {% for variant in image.variants %}
-              {%- if found != false -%}
-              <img src="{{variant.image.src | img_url: 'small'}}" alt="{{variant.title}}"/>
-      {%- endif -%}
-            {% endfor %}
-       {% endfor %}
+        {%- assign lookfor_color = variant.option1 | downcase -%}
+ 
+                        {%- assign found = false -%}
+                        {%- for image in product.images -%}
+                        {% unless image.attached_to_variant? %}
+                        {%- assign img_alt = image.alt | downcase -%}
+                        {%- if img_alt contains lookfor_color -%}
+                        {%- assign found = image -%}
+                        {%- break -%}
+                        {%- endif -%}
+                        {% endunless %}
+                        {%- endfor -%}
+ 
+                        {%- if found != false -%}
+                        <img src="{{ variant.image | img_url: '600x600' }}" alt="{{ product.featured_image.alt | escape }}">
+                        {%- endif -%}
+                        <img class="hidden" src="{{ found | img_url: '600x600' }}" alt="{{ found.alt | escape }}">
       {{ value -}} 
       <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
     </label>
