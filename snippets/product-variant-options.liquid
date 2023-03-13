@@ -61,7 +61,7 @@
     >
      
     <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" style="background-image: url({{ product.variants[forloop.index0].variant.image.src }})">  
-      <img id="product-featured-image" src="{{ featured_image | img_url: 'grande' }}" alt="{{ featured_image.alt | escape }}" data-zoom-image="{{ featured_image.src | img_url: 'original' }}"/>
+       <img src="{{ image.src | product_img_url: 'compact' }}" alt="{{ image.alt | escape }}">
       {{ value -}} 
       <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
     </label>
