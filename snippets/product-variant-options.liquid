@@ -63,7 +63,11 @@
     <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">  
            
        {% unless product.variant.image == blank %}
+         {% for image in product.images %}
+           {% for variant in image.variants %}
 <img src="{{ product.metafields.global.featured | asset_url }}" alt="{{ product.title | escape }}">
+      {% endfor %}
+       {% endfor %}
 {% else %}
 <img src="{{variant.image.src | img_url: 'large'}}"
                         alt="{{variant.title}}"/>
