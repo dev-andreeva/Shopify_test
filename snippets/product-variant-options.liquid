@@ -45,7 +45,18 @@
     endfor
   -%}
 
-               
+      {% if product.options contains 'Color' %}
+    <ul class="variantimage-on">
+       {% for image in product.images %}
+           {% for variant in image.variants %}
+               <li><img src="{{variant.image.src | img_url: 'large'}}"
+                        alt="{{variant.title}}"/></li>
+           {% endfor %}
+       {% endfor %}
+    </ul>
+{% else %}
+
+{% endif %}         
            
 
   {%- if block.settings.picker_type == 'button' -%}
