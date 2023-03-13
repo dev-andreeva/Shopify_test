@@ -60,7 +60,7 @@
       {% endif %}
     >
   
-    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}-{{ image in product.images }}-{{ variant in image.variants }}">  
+    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}-{{ product.images }}-{{ image.variants }}">  
                  
               <img src="{{variant.image.src | img_url: 'small'}}" alt="{{variant.title}}"/>
            
