@@ -63,7 +63,9 @@
     <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">  
         {% for image in product.images %}
            {% for variant in image.variants %}
+              {%- if found != false -%}
               <img src="{{variant.image.src | img_url: 'small'}}" alt="{{variant.title}}"/>
+      {%- endif -%}
             {% endfor %}
        {% endfor %}
       {{ value -}} 
