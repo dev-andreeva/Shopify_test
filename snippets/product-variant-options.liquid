@@ -64,7 +64,7 @@
            {% unless product.metafields.global.featured == blank %}
 <img src="{{ product.metafields.global.featured | asset_url }}" alt="{{ product.title | escape }}">
 {% else %}
-<img src="{{ product.featured_image | product_img_url: 'large' }}" alt="{{ product.title | escape }}">
+<img src="{{variant.image.src | img_url: 'large'}}" alt="{{variant.title}}"/>
 {% endunless %}
       {{ value -}} 
       <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
