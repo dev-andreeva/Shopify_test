@@ -60,7 +60,11 @@
       {% endif %}
     >
      
-    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" style="background-image:url({{ variant.image.src }})">   
+    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" style= style ="background-image:url(
+              {% for var_img in product.metafields.custom.trim_variant_bg.value %}
+                {{ variant.image.src | img_url:"master" }}
+                {% endfor %}
+            )">  
       {{ value -}}
       <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
     </label>
