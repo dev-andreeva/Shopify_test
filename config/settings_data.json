@@ -291,7 +291,8 @@
   },
   "platform_customizations": {
     "custom_css": [
-      ".product--stacked .product__media-item {max-width: 23%;}"
+      ".product--stacked .product__media-item {max-width: 23%;}",
+      "variant-radios label img {max-width: 50px;}"
     ]
   }
 }
