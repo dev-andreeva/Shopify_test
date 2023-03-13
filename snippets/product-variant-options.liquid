@@ -61,11 +61,8 @@
     >
   
     <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">  
-           {% unless product.metafields.global.featured == blank %}
-<img src="{{ product.metafields.global.featured | asset_url }}" alt="{{ product.title | escape }}">
-{% else %}
-<img src="{{variant.image.src | img_url: 'large'}}" alt="{{variant.title}}"/>
-{% endunless %}
+           {% assign current_variant = product.selected_or_first_available_variant %}
+{% assign featured_media = current_variant.featured_media | default: product.featured_media %}
       {{ value -}} 
       <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
     </label>
