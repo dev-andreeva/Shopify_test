@@ -60,9 +60,9 @@
       {% endif %}
     >
   
-    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}-{{ product.images }}-{{ image.variants }}">  
-                 
-              <img src="{{variant.image.src | img_url: 'small'}}" alt="{{variant.title}}"/>
+    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">  
+                  
+              <img src="{{product.variant.image.src | img_url: 'small'}}" alt="{{variant.title}}"/>
            
       {{ value -}} 
       <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
