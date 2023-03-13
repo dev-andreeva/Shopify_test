@@ -62,7 +62,9 @@
      
     <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">  
       {{ value -}} 
-     {% render 'product-media-gallery', variant_images: variant_images, is_duplicate: true %}
+      <img src="{{variant.featured_image.src | img_url: 'large'}}"
+                        alt="{{variant.title}}"/>
+     
       <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
     </label>
 
