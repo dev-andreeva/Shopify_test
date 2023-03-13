@@ -1,37 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Codespaces
-Marketplace
-Explore
- 
-@dev-andreeva 
-Shopify
-/
-dawn
-Public
-Fork your own copy of Shopify/dawn
-Code
-Issues
-730
-Pull requests
-79
-Discussions
-Actions
-Projects
-2
-Security
-Insights
-dawn/sections/main-product.liquid
-@krzksz
-krzksz Remove async CSS pattern where it may introduce layout shifts (#2270)
-Latest commit 6d4ec13 last week
- History
- 42 contributors
-@ludoboludo@tyleralsbury@kmeleta@LucasLacerdaUX@sofiamatulis@eugenekasimov@translation-platform@martinamarien@andrewetchen@metamoni@KaichenWang@melissaperreault
-2071 lines (2052 sloc)  85.2 KB
-
 <section
   id="MainProduct-{{ section.id }}"
   class="page-width section-{{ section.id }}-padding"
@@ -40,6 +6,7 @@ Latest commit 6d4ec13 last week
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
+  {{ 'component-rte.css' | asset_url | stylesheet_tag }}
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
@@ -108,7 +75,7 @@ Latest commit 6d4ec13 last week
               {% render block %}
             {%- when 'text' -%}
               <p
-                class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
+                class="product__text{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
                 {{ block.shopify_attributes }}
               >
                 {{- block.settings.text -}}
@@ -218,7 +185,7 @@ Latest commit 6d4ec13 last week
                   <summary>
                     <div class="summary__title">
                       {% render 'icon-accordion', icon: block.settings.icon %}
-                      <h2 class="h4 accordion__title inline-richtext">
+                      <h2 class="h4 accordion__title">
                         {{ block.settings.heading | default: block.settings.page.title }}
                       </h2>
                     </div>
@@ -458,7 +425,7 @@ Latest commit 6d4ec13 last week
                 {{ 'component-card.css' | asset_url | stylesheet_tag }}
                 {{ 'component-complementary-products.css' | asset_url | stylesheet_tag }}
                 {%- if block.settings.enable_quick_add -%}
-                  {{ 'quick-add.css' | asset_url | stylesheet_tag }}
+                  <link rel="stylesheet" href="{{ 'quick-add.css' | asset_url }}" media="print" onload="this.media='all'">
                   <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
                 {%- endif -%}
               </product-recommendations>
@@ -528,8 +495,10 @@ Latest commit 6d4ec13 last week
         const ua = window.navigator.userAgent;
         const msie = ua.indexOf('MSIE ');
         const trident = ua.indexOf('Trident/');
+
         return msie > 0 || trident > 0;
       }
+
       if (!isIE()) return;
       const hiddenInput = document.querySelector('#{{ product_form_id }} input[name="id"]');
       const noScriptInputWrapper = document.createElement('div');
@@ -540,6 +509,7 @@ Latest commit 6d4ec13 last week
         '.product-form__noscript-wrapper-{{ section.id }}'
       ).textContent;
       variantSwitcher.outerHTML = noScriptInputWrapper.outerHTML;
+
       document.querySelector('#Variants-{{ section.id }}').addEventListener('change', function (event) {
         hiddenInput.value = event.currentTarget.value;
       });
@@ -614,7 +584,7 @@ Latest commit 6d4ec13 last week
       "name": "t:sections.main-product.blocks.text.name",
       "settings": [
         {
-          "type": "inline_richtext",
+          "type": "text",
           "id": "text",
           "default": "Text block",
           "label": "t:sections.main-product.blocks.text.settings.text.label"
@@ -1523,7 +1493,7 @@ Latest commit 6d4ec13 last week
           "label": "t:sections.main-product.blocks.icon_with_text.settings.image_1.label"
         },
         {
-          "type": "inline_richtext",
+          "type": "text",
           "id": "heading_1",
           "default": "Heading",
           "label": "t:sections.main-product.blocks.icon_with_text.settings.heading_1.label",
@@ -1719,7 +1689,7 @@ Latest commit 6d4ec13 last week
           "label": "t:sections.main-product.blocks.icon_with_text.settings.image_2.label"
         },
         {
-          "type": "inline_richtext",
+          "type": "text",
           "id": "heading_2",
           "default": "Heading",
           "label": "t:sections.main-product.blocks.icon_with_text.settings.heading_2.label",
@@ -1915,7 +1885,7 @@ Latest commit 6d4ec13 last week
           "label": "t:sections.main-product.blocks.icon_with_text.settings.image_3.label"
         },
         {
-          "type": "inline_richtext",
+          "type": "text",
           "id": "heading_3",
           "default": "Heading",
           "label": "t:sections.main-product.blocks.icon_with_text.settings.heading_3.label",
@@ -2029,17 +1999,12 @@ Latest commit 6d4ec13 last week
           "label": "t:sections.main-product.settings.image_zoom.options__1.label"
         },
         {
-          "value": "hover",
-          "label": "t:sections.main-product.settings.image_zoom.options__2.label"
-        },
-        {
           "value": "none",
           "label": "t:sections.main-product.settings.image_zoom.options__3.label"
         }
       ],
       "default": "lightbox",
-      "label": "t:sections.main-product.settings.image_zoom.label",
-      "info": "t:sections.main-product.settings.image_zoom.info"
+      "label": "t:sections.main-product.settings.image_zoom.label"
     },
     {
       "type": "select",
