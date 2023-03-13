@@ -62,10 +62,11 @@
   
     <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">  
         {% for image in product.images %}
-           {% for variant in image.variants %}  
-              <img src="{{variant[forloop.index0].featured_media | img_url: 'small'}}" alt="{{variant.title}}"/>
-            {% endfor %}
-       {% endfor %}
+						<div class="additional-image-contain">
+							<a href="{{ image.src | img_url: 'master' }}" class="box-link additional-img"></a>
+							<div class="additional-image" style="background-image: url({{ image.src | img_url: 'compact' }})"></div>
+						</div>
+					{% endfor %}
       {{ value -}} 
       
       <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
