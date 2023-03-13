@@ -855,9 +855,10 @@ class VariantSelects extends HTMLElement {
     if (!modalContent) return;
     const newMediaModal = modalContent.querySelector( `[data-media-id="${this.currentVariant.featured_media.id}"]`);
     modalContent.prepend(newMediaModal);
+    console.log(newMediaModal);
   }
 
-  console.log(newMediaModal);
+  
 
   updateURL() {
     if (!this.currentVariant || this.dataset.updateUrl === 'false') return;
