@@ -65,7 +65,7 @@
      
       <div class="VariantSelector__Item Carousel__Cell {% if value == option.selected_value %}is-selected{% endif %}"
 data-background-color="{{ value | split: ' ' | last | handle }}"
-data-background-image="{{ value | handle | append: '.png' | asset_url }}"
+style = "background-image:{{ value | handle | append: '.png' | asset_url }}"
 data-option-position="{{ option.position }}"
 data-option-value="{{ value | escape }}">
 {%- for variant in product.variants -%}
