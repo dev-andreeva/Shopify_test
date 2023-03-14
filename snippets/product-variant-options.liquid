@@ -61,38 +61,13 @@
     >
 
     <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">  
-        {%- for variant in product.variants -%}
-{%- if variant[option_index] == value -%}
-{%- assign variant_image = variant.image | default: product.featured_image -%} 
+        {% for image in product.images %}
+           {% for variant in image.variants %}  
               <img src="{{variant.image.src | img_url: 'small'}}" alt="{{variant.title}}"/>
-            {% endif %}
+            {% endfor %}
        {% endfor %}
       {{ value -}} 
-      <div class="VariantSelector__Item Carousel__Cell {% if value == option.selected_value %}is-selected{% endif %}"
-data-background-color="{{ value | split: ' ' | last | handle }}"
-data-background-image="{{ value | handle | append: '.png' | asset_url }}"
-data-option-position="{{ option.position }}"
-data-option-value="{{ value | escape }}">
-{%- for variant in product.variants -%}
-{%- if variant[option_index] == value -%}
-{%- assign variant_image = variant.image | default: product.featured_image -%}
-
-{%- assign variant_title_excluded_color = '' -%}
-{%- for option_index_excluded_color in option_indexes_excluded_color -%}
-{%- capture sub_option_index -%}option{{ option_index_excluded_color }}{%- endcapture -%}
-{%- assign variant_title_excluded_color = variant_title_excluded_color | append: variant[sub_option_index] -%}
-{%- endfor -%}
-
-<div data-variant-title="{{ variant_title_excluded_color | escape }}" class="VariantSelector__ImageWrapper AspectRatio AspectRatio--withFallback" aria-hidden="{% if selected_variant_title_excluded_color == variant_title_excluded_color %}false{% else %}true{% endif %}" style="max-width: {{ variant_image.width }}px; padding-bottom: {{ 100.0 | divided_by: variant_image.aspect_ratio }}%; --aspect-ratio: {{ variant_image.aspect_ratio }}">
-{%- capture supported_sizes -%}{%- render 'image-size', sizes: '200,400,600,800', image: variant_image -%}{%- endcapture -%}
-{%- assign image_url = variant_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
-
-<img class="VariantSelector__Image Image--lazyLoad Image--fadeIn" data-src="{{ image_url }}" data-widths="[{{ supported_sizes }}]" data-sizes="auto" alt="{{ variant_image.alt | escape }}">
-<span class="Image__Loader"></span>
-</div>
-{%- endif -%}
-{%- endfor -%}
-</div>
+      
       <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
     </label>
 
