@@ -44,7 +44,30 @@
       endcase
     endfor
   -%}
-<div class="VariantSelector__Item Carousel__Cell {% if value == option.selected_value %}is-selected{% endif %}"
+
+     {%- if block.settings.picker_type == 'button' -%}
+    <input
+      type="radio"
+      id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+      name="{{ option.name }}"
+      value="{{ value | escape }}"
+      form="{{ product_form_id }}"
+      {% if option.selected_value == value %}
+        checked
+      {% endif %}
+      {% if option_disabled %}
+        class="disabled"
+      {% endif %}
+    >
+
+    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">  
+        {% for image in product.images %}
+           {% for variant in image.variants %}  
+              <img src="{{variant.image.src | img_url: 'small'}}" alt="{{variant.title}}"/>
+            {% endfor %}
+       {% endfor %}
+      {{ value -}} 
+      <div class="VariantSelector__Item Carousel__Cell {% if value == option.selected_value %}is-selected{% endif %}"
 data-background-color="{{ value | split: ' ' | last | handle }}"
 data-background-image="{{ value | handle | append: '.png' | asset_url }}"
 data-option-position="{{ option.position }}"
@@ -69,29 +92,6 @@ data-option-value="{{ value | escape }}">
 {%- endif -%}
 {%- endfor -%}
 </div>
-     {%- if block.settings.picker_type == 'button' -%}
-    <input
-      type="radio"
-      id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-      name="{{ option.name }}"
-      value="{{ value | escape }}"
-      form="{{ product_form_id }}"
-      {% if option.selected_value == value %}
-        checked
-      {% endif %}
-      {% if option_disabled %}
-        class="disabled"
-      {% endif %}
-    >
-
-    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">  
-        {% for image in product.images %}
-           {% for variant in image.variants %}  
-              <img src="{{variant.image.src | img_url: 'small'}}" alt="{{variant.title}}"/>
-            {% endfor %}
-       {% endfor %}
-      {{ value -}} 
-      
       <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
     </label>
 
