@@ -64,13 +64,7 @@
     <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">  
         {% for image in product.images %}
            {% for variant in image.variants %} 
-              <img form="{{ product_form_id }}"
-      {% if option.selected_value == value %}
-        checked
-      {% endif %}
-      {% if option_disabled %}
-        class="disabled"
-      {% endif %} src="{{variant.image.src | img_url: 'small'}}" alt="{{variant.title}}"/>
+              <img src="{{variant.image.src | img_url: 'small'}}" alt="{{variant.title}}"/>
             {% endfor %}
        {% endfor %}
       {{ value -}} 
