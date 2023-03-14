@@ -59,7 +59,8 @@
         class="disabled"
       {% endif %}
     >
-  
+  {%- if product.selected_or_first_available_variant.featured_media != null -%}
+        {%- assign featured_media = product.selected_or_first_available_variant.featured_media -%}
     <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">  
         {% for image in product.images %}
            {% for variant in image.variants %}  
@@ -70,7 +71,7 @@
       
       <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
     </label>
-
+{%- endif -%}
   {%- elsif block.settings.picker_type == 'dropdown' -%}
     <option
       value="{{ value | escape }}"
