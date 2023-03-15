@@ -62,7 +62,7 @@
     >
 
     <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">  
-        
+        {% if variant.image %}<img src="{{ variant.image | img_url: '100x' }}" alt="{{ variant.title }}" />{% endif %}
       {{ value -}} 
       
       <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
