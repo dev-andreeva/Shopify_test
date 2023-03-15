@@ -545,6 +545,7 @@
       },
       "offers": [
         {%- for variant in product.variants -%}
+          {% if variant.image %}<img src="{{ variant.image | img_url: '100x' }}" alt="{{ variant.title }}" />{% endif %}
           {
             "@type" : "Offer",
             {%- if variant.sku != blank -%}
